@@ -1,4 +1,4 @@
-from _datetime import datetime
+from datetime import datetime
 from time import sleep
 
 # 1) Использовать Python/Java, подключить библиотеку Selenium Webdriver;
@@ -9,7 +9,6 @@ from selenium.webdriver.chrome.options import Options
 from selenium.webdriver.support.wait import WebDriverWait
 from selenium.webdriver import Keys
 import csv
-from selenium.webdriver.support.select import Select
 
 
 def fibonacci(n):
