@@ -1,8 +1,10 @@
+import allure
 from selenium.webdriver.common.by import By
 from selenium.webdriver.support.wait import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
 
 from base.base_class import Base
+from utilities.logger import Logger
 
 
 class LoginPage(Base):
@@ -34,15 +36,16 @@ class LoginPage(Base):
     # Actions
 
     def click_customer_login_button(self):
-        """
-        Нажатие на кнопку: customer_login
-        """
+        """Нажатие кнопки: customer_login"""
         self.get_customer_login().click()
         print("Нажали кнопку 'customer login'")
 
     # Methods
     def login_page_actions(self):
-        self.driver.get(self.url)
-        self.get_current_url()
-        self.click_customer_login_button()
-        self.check_text(self.get_check_text(), 'Your Name :')
+        with allure.step("login_page_actions"):
+            Logger.add_start_step(method="login_page_actions")
+            self.driver.get(self.url)
+            self.get_current_url()
+            self.click_customer_login_button()
+            self.check_text(self.get_check_text(), 'Your Name :')
+            Logger.add_end_step(url=self.driver.current_url, method="login_page_actions")

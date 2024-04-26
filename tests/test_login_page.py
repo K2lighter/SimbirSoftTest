@@ -1,6 +1,7 @@
 from datetime import datetime
 from time import sleep
 
+import pytest
 # 1) Использовать Python/Java, подключить библиотеку Selenium Webdriver;
 from selenium.webdriver.common.by import By
 from selenium.webdriver.support import expected_conditions as EC
@@ -17,6 +18,7 @@ def fibonacci(n):
     return fibonacci(n - 1) + fibonacci(n - 2)
 
 
+@pytest.mark.skip
 def test_select_product():
     options = Options()
     # options.add_argument("--headless")

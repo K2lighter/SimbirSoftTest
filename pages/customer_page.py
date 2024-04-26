@@ -1,8 +1,10 @@
+import allure
 from selenium.webdriver import Keys
 from selenium.webdriver.common.by import By
 from selenium.webdriver.support.wait import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
 from base.base_class import Base
+from utilities.logger import Logger
 
 
 class CustomerPage(Base):
@@ -26,9 +28,7 @@ class CustomerPage(Base):
             EC.element_to_be_clickable((By.XPATH, self.drop_down_your_name_locator)))
 
     def get_login_button(self):
-        """
-        Кнопка: Login
-        """
+        """Кнопка: Login"""
         return WebDriverWait(self.driver, 30).until(
             EC.element_to_be_clickable((By.XPATH, self.login_button_locator)))
 
@@ -40,32 +40,27 @@ class CustomerPage(Base):
     # Actions
 
     def click_drop_down_your_name(self):
-        """
-        Нажимаем drop_down your_name
-        """
+        """Нажатие drop_down your_name"""
         self.get_drop_down_your_name().click()
 
     def select_harry_potter(self):
-        """
-        Выбираем пользователя: Harry Potter
-        """
+        """Выбираем пользователя: Harry Potter"""
         self.get_drop_down_your_name().send_keys(Keys.DOWN * 2)
         self.get_drop_down_your_name().send_keys(Keys.ENTER)
 
     def click_login_button(self):
-        """
-        Нажимаем кнопку Login
-        """
+        """Нажатие кнопки Login"""
         self.get_login_button().click()
 
     # Methods
 
-    def select_user_page(self):
-        """
-        Выбираем пользователя
-        """
-        self.driver.get(self.url)
-        self.click_drop_down_your_name()
-        self.select_harry_potter()
-        self.click_login_button()
-        self.check_text(self.get_check_text(), "Harry Potter")
+    def select_user(self):
+        """Выбираем пользователя"""
+        with allure.step("select_user"):
+            Logger.add_start_step(method="select_user")
+            self.get_current_url()
+            self.click_drop_down_your_name()
+            self.select_harry_potter()
+            self.click_login_button()
+            self.check_text(self.get_check_text(), "Harry Potter")
+            Logger.add_end_step(url=self.driver.current_url, method="select_user")

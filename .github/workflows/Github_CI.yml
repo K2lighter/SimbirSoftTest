@@ -1,0 +1,83 @@
+name: Github CI
+
+on:
+  workflow_dispatch:
+    inputs:
+      deployment_target:
+        description: Choose target
+        required: true
+        default: first_test
+        type: choice
+        options:
+          - first_test
+          - second_test
+
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v3
+      - name: setup Python
+        uses: actions/setup-python@v4
+        with:
+          python-version: "3.11"
+      - name: Install Chrome
+        run: sudo apt-get install google-chrome-stable
+      - name: pip update
+        run: pip install --upgrade pip
+      - name: install dependencies
+        run: pip install -r requirements.txt
+      - name: first_test
+        if: "github.event.inputs.deployment_target == 'first_test'"
+        run: pytest tests/test_login_page.py::test_select_product --alluredir=allure-results
+      - name: second_test
+        if: "github.event.inputs.deployment_target == 'second_test'"
+        run: pytest tests/test_smoke.py::test_smoke_v1 --alluredir=allure-results
+      - name: Store allure results
+        uses: actions/upload-artifact@v3
+        with:
+          name: allure-results
+          path:
+            allure-results
+          retention-days: 1
+
+  generate-report:
+    runs-on: ubuntu-latest
+    needs: test
+    name: generate report
+    steps:
+      - uses: actions/setup-java@v3
+        with:
+          distribution: 'microsoft' # see 'Supported distributions' available options
+          java-version: '17'
+      - run: sudo wget https://github.com/allure-framework/allure2/releases/download/2.22.4/allure-2.22.4.tgz && sudo tar -zxvf allure-2.22.4.tgz -C /opt/ && sudo ln -s /opt/allure-2.22.4/bin/allure /usr/bin/allure
+      - name: Download all workflow run artifacts
+        uses: actions/download-artifact@v3
+      - run: allure generate -c allure-results -o _site
+      - name: Store generated report
+        uses: actions/upload-artifact@v3
+        with:
+          name: _site
+          path:
+            _site
+          retention-days: 1
+
+  publish-report:
+    runs-on: ubuntu-latest
+    needs: generate-report
+    name: Report publication
+    steps:
+      - name: Download all workflow run artifacts
+        uses: actions/download-artifact@v3
+      - name: Upload pages artifact
+        uses: actions/upload-pages-artifact@v2
+      - name: Deploy to Github pages
+        id: deployment
+        uses: actions/deploy-pages@v1.2.9
