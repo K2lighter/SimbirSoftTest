@@ -18,7 +18,7 @@ def fibonacci(n):
     return fibonacci(n - 1) + fibonacci(n - 2)
 
 
-@pytest.mark.skip
+
 def test_select_product():
     options = Options()
     # options.add_argument("--headless")
