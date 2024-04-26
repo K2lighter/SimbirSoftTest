@@ -1,0 +1,66 @@
+
+-----
+Test: tests/test_smoke.py::test_smoke_v1 (call)
+Start time: 2024-04-26 17:22:58.320111
+Start name method: login_page_actions
+
+End time: 2024-04-26 17:23:00.504094
+End name method: login_page_actions
+URL: https://www.globalsqa.com/angularJs-protractor/BankingProject/#/customer
+
+-----
+
+-----
+Test: tests/test_smoke.py::test_smoke_v1 (call)
+Start time: 2024-04-26 17:23:00.504227
+Start name method: select_user
+
+End time: 2024-04-26 17:23:00.954456
+End name method: select_user
+URL: https://www.globalsqa.com/angularJs-protractor/BankingProject/#/account
+
+-----
+
+-----
+Test: tests/test_smoke.py::test_smoke_v1 (call)
+Start time: 2024-04-26 17:23:00.954599
+Start name method: input_deposit_value
+
+End time: 2024-04-26 17:23:01.498449
+End name method: input_deposit_value
+URL: https://www.globalsqa.com/angularJs-protractor/BankingProject/#/account
+
+-----
+
+-----
+Test: tests/test_smoke.py::test_smoke_v1 (call)
+Start time: 2024-04-26 17:23:01.498627
+Start name method: input_withdrawal_value
+
+End time: 2024-04-26 17:23:02.729288
+End name method: input_withdrawal_value
+URL: https://www.globalsqa.com/angularJs-protractor/BankingProject/#/account
+
+-----
+
+-----
+Test: tests/test_smoke.py::test_smoke_v1 (call)
+Start time: 2024-04-26 17:23:02.729452
+Start name method: transaction_button
+
+End time: 2024-04-26 17:23:04.199582
+End name method: transaction_button
+URL: https://www.globalsqa.com/angularJs-protractor/BankingProject/#/listTx
+
+-----
+
+-----
+Test: tests/test_smoke.py::test_smoke_v1 (call)
+Start time: 2024-04-26 17:23:04.199734
+Start name method: finish_check
+
+End time: 2024-04-26 17:23:04.528333
+End name method: finish_check
+URL: https://www.globalsqa.com/angularJs-protractor/BankingProject/#/listTx
+
+-----
