@@ -21,7 +21,7 @@ def fibonacci(n):
 
 def test_select_product():
     options = Options()
-    options.add_argument("--headless")
+    # options.add_argument("--headless")
     options.add_argument("--no-sandbox")
     options.add_argument("--disable-dev-shm-usage")
     options.add_argument("--windows-size=1920,1080")
@@ -32,14 +32,14 @@ def test_select_product():
     base_url = "https://www.globalsqa.com/angularJs-protractor/BankingProject/#/login;"
 
     driver.get(base_url)
-    sleep(1)
+
 
     # 3) Авторизоваться пользователем «Harry Potter»;
     button_customer_login_locator = '//button[@class="btn btn-primary btn-lg"]'
     button_customer_login = WebDriverWait(driver, 30).until(
         EC.element_to_be_clickable((By.XPATH, button_customer_login_locator)))
     button_customer_login.click()
-    sleep(1)
+
 
     drop_down_your_name_locator = '//select[@id="userSelect"]'
     drop_down_your_name = WebDriverWait(driver, 30).until(
@@ -52,13 +52,13 @@ def test_select_product():
     drop_down_list = Select(drop_down_your_name)
     drop_down_list.select_by_value("2")
     drop_down_your_name.send_keys(Keys.ENTER)
-    sleep(1)
+
     login_button_locator = '//button[@class="btn btn-default"]'
     login_button = WebDriverWait(driver, 30).until(
         EC.element_to_be_clickable((By.XPATH, login_button_locator)))
 
     login_button.click()
-    sleep(1)
+
 
     # 4) Вычислить N-е число Фибоначчи, где N - это текущий день месяца + 1.
 
@@ -72,19 +72,21 @@ def test_select_product():
     deposit_button = WebDriverWait(driver, 30).until(
         EC.element_to_be_clickable((By.XPATH, deposit_button_locator)))
     deposit_button.click()
-    sleep(1)
+
 
     amount_placeholder_locator = '//input[@placeholder="amount"]'
     amount_placeholder = WebDriverWait(driver, 30).until(
         EC.element_to_be_clickable((By.XPATH, amount_placeholder_locator)))
+    WebDriverWait(driver, 10).until(EC.text_to_be_present_in_element((By.TAG_NAME, 'body'), "Amount to be Deposited :"))
     amount_placeholder.send_keys(my_fibo)
     sleep(1)
+
 
     deposit_submit_locator = '//button[@type="submit"]'
     deposit_submit = WebDriverWait(driver, 30).until(
         EC.element_to_be_clickable((By.XPATH, deposit_submit_locator)))
     deposit_submit.click()
-    sleep(1)
+
 
     # 6) Выполнить списание со счета (Withdrawl) на сумму равную вычисленному в п.4 числу;
 
@@ -92,13 +94,15 @@ def test_select_product():
     withdrawal_button = WebDriverWait(driver, 30).until(
         EC.element_to_be_clickable((By.XPATH, withdrawl_button_locator)))
     withdrawal_button.click()
-    sleep(1)
 
-    amount_placeholder_w_locator = '//input[@placeholder="amount"]'
+    amount_placeholder_w_locator = '//input[@class="form-control ng-pristine ng-untouched ng-invalid ng-invalid-required"]'
     amount_placeholder_w = WebDriverWait(driver, 30).until(
         EC.element_to_be_clickable((By.XPATH, amount_placeholder_w_locator)))
+
+    WebDriverWait(driver, 10).until(EC.text_to_be_present_in_element((By.TAG_NAME, 'body'), "Amount to be Withdrawn :"))
     amount_placeholder_w.send_keys(my_fibo)
-    sleep(1)
+
+
 
     withdrawl_submit_locator = '//button[text()="Withdraw"]'
     withdrawal_submit = WebDriverWait(driver, 30).until(

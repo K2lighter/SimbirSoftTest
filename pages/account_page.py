@@ -1,16 +1,13 @@
 import allure
 
 from utilities.fibonacci import my_fibo
-from time import sleep
 from selenium.webdriver.common.by import By
 from selenium.webdriver.support.wait import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
 from base.base_class import Base
 from utilities.logger import Logger
 
-"""
-Пришлось использовать sleep(1), в 2-х местах, так как тест падает. Пытаюсь лечить эту проблему)
-"""
+"
 class AccountPage(Base):
 
     def __init__(self, driver):
@@ -32,7 +29,11 @@ class AccountPage(Base):
     transaction_locator = '//button[@ng-class="btnClass1"]'
     check_amount_locator = '//*[text()="Amount"]'
 
-    # getters
+    text_to_be_present_in_element_d = "Amount to be Deposited :"
+    text_to_be_present_in_element_w = "Amount to be Withdrawn :"
+    text_to_be_present_in_element_tran = "Transaction successful"
+
+    # Getters
 
     def get_deposit_button(self):
         """ Кнопка: deposit_button"""
@@ -45,7 +46,7 @@ class AccountPage(Base):
             EC.element_to_be_clickable((By.XPATH, self.amount_placeholder_locator)))
 
     def get_deposit_submit(self):
-        """Кнопка: deposit_submit"""
+        """Кнопка подтверждения deposit_submit"""
         return WebDriverWait(self.driver, 30).until(
             EC.element_to_be_clickable((By.XPATH, self.deposit_submit_locator)))
 
@@ -60,37 +61,46 @@ class AccountPage(Base):
             EC.element_to_be_clickable((By.XPATH, self.check_balance_locator)))
 
     def get_withdrawal_button(self):
-        """withdrawl_button"""
+        """Кнопка withdrawl_button"""
         return WebDriverWait(self.driver, 30).until(
             EC.element_to_be_clickable((By.XPATH, self.withdrawal_button_locator)))
 
     def get_amount_withdrawal(self):
+        """Поле amount_withdrawal"""
         return WebDriverWait(self.driver, 30).until(
             EC.element_to_be_clickable((By.XPATH, self.amount_withdrawal_locator)))
 
     def get_withdrawal_submit(self):
+        """Кнопка подтверждения withdrawal_submit"""
         return WebDriverWait(self.driver, 30).until(
             EC.element_to_be_clickable((By.XPATH, self.withdrawal_submit_locator)))
 
     def get_transaction_button(self):
+        """Кнопка transaction"""
         return WebDriverWait(self.driver, 30).until(
             EC.element_to_be_clickable((By.XPATH, self.transaction_locator)))
 
     def get_check_amount(self):
+        """Текст успешной операции"""
         return WebDriverWait(self.driver, 30).until(
             EC.element_to_be_clickable((By.XPATH, self.check_amount_locator)))
+
+    def get_check_text_to_be_present_in_element(self, text):
+        """Ожидание, пока не появится поверочный текст на странице"""
+        return WebDriverWait(self.driver, 10).until(
+            EC.text_to_be_present_in_element((By.TAG_NAME, 'body'), text))
 
     # Actions
 
     def click_deposit_button(self):
         """Нажатие кнопки deposit_button"""
         self.get_deposit_button().click()
-        print("Кликнули кнопку 'deposit')
+        print("Кликнули кнопку 'deposit'")
 
     def input_fibo_deposit(self, fibo):
-        """Вставляем в поле amount_deposit вычисленное значение fibonacci"""
+        """Вносим в поле amount_deposit вычисленное значение fibonacci"""
         self.get_amount_deposit().send_keys(fibo)
-        print("Вносим значение fibonacci в поле deposit"))
+        print("Вносим значение fibonacci в поле deposit")
 
     def click_deposit_submit(self):
         """Нажатие кнопки deposit_submit"""
@@ -102,9 +112,9 @@ class AccountPage(Base):
         self.get_withdrawal_button().click()
         print("Кликнули кнопку 'withdrawal'")
     def input_fibo_withdrawal(self, fibo):
-        """Вставляем в поле amount_withdrawal вычисленное значение fibonacci"""
+        """Вносим в поле amount_withdrawal вычисленное значение fibonacci"""
         self.get_amount_withdrawal().send_keys(fibo)
-        print("Вносим значение fibonacci в поле withdrawal"))
+        print("Вносим значение fibonacci в поле withdrawal")
 
     def click_withdrawal_submit(self):
         """Нажатие кнопки withdrawal_submit"""
@@ -126,6 +136,7 @@ class AccountPage(Base):
             Logger.add_start_step(method="input_deposit_value")
             self.get_current_url()
             self.click_deposit_button()
+            self.get_check_text_to_be_present_in_element(self.text_to_be_present_in_element_d)
             self.input_fibo_deposit(my_fibo)
             self.click_deposit_submit()
             self.check_text(self.get_check_text(), 'Deposit Successful')
@@ -139,7 +150,7 @@ class AccountPage(Base):
         with allure.step("Input_withdrawal_value"):
             Logger.add_start_step(method="input_withdrawal_value")
             self.click_withdrawal_button()
-            sleep(1)
+            self.get_check_text_to_be_present_in_element(self.text_to_be_present_in_element_w)
             self.input_fibo_withdrawal(my_fibo)
             self.click_withdrawal_submit()
             self.check_text(self.get_check_text(), 'Transaction successful')
@@ -149,7 +160,7 @@ class AccountPage(Base):
         """Нажатие кнопки transaction_button"""
         with allure.step("End transaction"):
             Logger.add_start_step(method="transaction_button")
-            sleep(1)
+            self.get_check_text_to_be_present_in_element(self.text_to_be_present_in_element_tran)
             self.click_transaction_button()
             self.check_text(self.get_check_amount(), 'Amount')
             Logger.add_end_step(url=self.driver.current_url, method="transaction_button")
