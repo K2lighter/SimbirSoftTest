@@ -10,7 +10,7 @@ on:
         type: choice
         options:
           - first_test
-          - second_test
+  
 
 permissions:
   contents: read
@@ -36,9 +36,6 @@ jobs:
         run: pip install -r requirements.txt
       - name: first_test
         if: "github.event.inputs.deployment_target == 'first_test'"
-        run: pytest tests/test_login_page.py::test_select_product --alluredir=allure-results
-      - name: second_test
-        if: "github.event.inputs.deployment_target == 'second_test'"
         run: pytest tests/test_smoke.py::test_smoke_v1 --alluredir=allure-results
       - name: Store allure results
         uses: actions/upload-artifact@v3
