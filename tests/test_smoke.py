@@ -1,5 +1,3 @@
-import pytest
-
 from pages.login_page import LoginPage
 from pages.customer_page import CustomerPage
 from pages.account_page import AccountPage
