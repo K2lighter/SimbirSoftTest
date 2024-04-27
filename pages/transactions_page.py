@@ -60,7 +60,7 @@ class TransactionsPage(Base):
     # Actions
     def finish_check(self):
         with allure.step("finish_check"):
-            Logger.add_start_step(method="finish_check")
+            # Logger.add_start_step(method="finish_check")
             self.get_current_url()
             date_credit = self.get_transaction_credit_date().text
             date_debit = self.get_transaction_debit_date().text
@@ -72,7 +72,7 @@ class TransactionsPage(Base):
             self.check_text(self.get_transaction_debit_balance(), str(my_fibo))
             self.check_url('https://www.globalsqa.com/angularJs-protractor/BankingProject/#/listTx')
             self.get_screenshot()
-            Logger.add_end_step(url=self.driver.current_url, method="finish_check")
+            # Logger.add_end_step(url=self.driver.current_url, method="finish_check")
 
         with open("transaction.csv", "w") as file:
             writer = csv.writer(file)

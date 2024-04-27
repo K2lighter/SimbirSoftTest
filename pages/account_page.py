@@ -6,8 +6,8 @@ from selenium.webdriver.support.wait import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
 from base.base_class import Base
 from utilities.logger import Logger
+from time import sleep
 
-"
 class AccountPage(Base):
 
     def __init__(self, driver):
@@ -133,7 +133,7 @@ class AccountPage(Base):
         Пополнение счета (Deposit) на сумму равную вычисленному в п.4 числу
         """
         with allure.step("input_deposit_value"):
-            Logger.add_start_step(method="input_deposit_value")
+            # Logger.add_start_step(method="input_deposit_value")
             self.get_current_url()
             self.click_deposit_button()
             self.get_check_text_to_be_present_in_element(self.text_to_be_present_in_element_d)
@@ -141,26 +141,27 @@ class AccountPage(Base):
             self.click_deposit_submit()
             self.check_text(self.get_check_text(), 'Deposit Successful')
             self.check_text(self.get_balance(), str(my_fibo))
-            Logger.add_end_step(url=self.driver.current_url, method="input_deposit_value")
+            # Logger.add_end_step(url=self.driver.current_url, method="input_deposit_value")
 
     def input_withdrawal_value(self):
         """
         Списание со счета (Withdrawal) на сумму равную вычисленному в п.4 числу;
         """
         with allure.step("Input_withdrawal_value"):
-            Logger.add_start_step(method="input_withdrawal_value")
+            # Logger.add_start_step(method="input_withdrawal_value")
             self.click_withdrawal_button()
             self.get_check_text_to_be_present_in_element(self.text_to_be_present_in_element_w)
             self.input_fibo_withdrawal(my_fibo)
             self.click_withdrawal_submit()
             self.check_text(self.get_check_text(), 'Transaction successful')
             self.check_text(self.get_balance(), str(int(my_fibo) - int(my_fibo)))
-            Logger.add_end_step(url=self.driver.current_url, method="input_withdrawal_value")
+            # Logger.add_end_step(url=self.driver.current_url, method="input_withdrawal_value")
     def transaction_button(self):
         """Нажатие кнопки transaction_button"""
         with allure.step("End transaction"):
-            Logger.add_start_step(method="transaction_button")
+            # Logger.add_start_step(method="transaction_button")
+            sleep(1)
             self.get_check_text_to_be_present_in_element(self.text_to_be_present_in_element_tran)
             self.click_transaction_button()
             self.check_text(self.get_check_amount(), 'Amount')
-            Logger.add_end_step(url=self.driver.current_url, method="transaction_button")
+            # Logger.add_end_step(url=self.driver.current_url, method="transaction_button")
