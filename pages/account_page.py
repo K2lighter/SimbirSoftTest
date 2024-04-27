@@ -8,7 +8,9 @@ from selenium.webdriver.support import expected_conditions as EC
 from base.base_class import Base
 from utilities.logger import Logger
 
-
+"""
+Пришлось использовать sleep(1), в 2-х местах, так как тест падает. Пытаюсь лечить эту проблему)
+"""
 class AccountPage(Base):
 
     def __init__(self, driver):
@@ -83,30 +85,36 @@ class AccountPage(Base):
     def click_deposit_button(self):
         """Нажатие кнопки deposit_button"""
         self.get_deposit_button().click()
+        print("Кликнули кнопку 'deposit')
 
     def input_fibo_deposit(self, fibo):
         """Вставляем в поле amount_deposit вычисленное значение fibonacci"""
         self.get_amount_deposit().send_keys(fibo)
+        print("Вносим значение fibonacci в поле deposit"))
 
     def click_deposit_submit(self):
         """Нажатие кнопки deposit_submit"""
         self.get_deposit_submit().click()
+        print("Кликнули кнопку подтверждения 'deposit'")
 
     def click_withdrawal_button(self):
         """Нажатие кнопки withdrawal_button"""
         self.get_withdrawal_button().click()
-
+        print("Кликнули кнопку 'withdrawal'")
     def input_fibo_withdrawal(self, fibo):
         """Вставляем в поле amount_withdrawal вычисленное значение fibonacci"""
         self.get_amount_withdrawal().send_keys(fibo)
+        print("Вносим значение fibonacci в поле withdrawal"))
 
     def click_withdrawal_submit(self):
         """Нажатие кнопки withdrawal_submit"""
         self.get_withdrawal_submit().click()
+        print("Кликнули кнопку подтверждения 'withdrawal'")
 
     def click_transaction_button(self):
         """Нажатие кнопки transaction_button"""
         self.get_transaction_button().click()
+        print("Кликнули кнопку 'transaction'")
 
     # Methods
 

@@ -9,6 +9,7 @@ from selenium import webdriver
 from selenium.webdriver.chrome.options import Options
 from selenium.webdriver.support.wait import WebDriverWait
 from selenium.webdriver import Keys
+from selenium.webdriver.support.select import Select
 import csv
 
 
@@ -16,7 +17,6 @@ def fibonacci(n):
     if n in (1, 2):
         return 1
     return fibonacci(n - 1) + fibonacci(n - 2)
-
 
 
 def test_select_product():
@@ -44,13 +44,15 @@ def test_select_product():
     drop_down_your_name_locator = '//select[@id="userSelect"]'
     drop_down_your_name = WebDriverWait(driver, 30).until(
         EC.element_to_be_clickable((By.XPATH, drop_down_your_name_locator)))
-    drop_down_your_name.click()
-    sleep(1)
-    drop_down_your_name.send_keys(Keys.DOWN * 2)
-    sleep(1)
+    # drop_down_your_name.click()
+    # sleep(1)
+    # drop_down_your_name.send_keys(Keys.DOWN * 2)
+    # sleep(1)
+
+    drop_down_list = Select(drop_down_your_name)
+    drop_down_list.select_by_value("2")
     drop_down_your_name.send_keys(Keys.ENTER)
     sleep(1)
-
     login_button_locator = '//button[@class="btn btn-default"]'
     login_button = WebDriverWait(driver, 30).until(
         EC.element_to_be_clickable((By.XPATH, login_button_locator)))

@@ -36,9 +36,9 @@ class LoginPage(Base):
     # Actions
 
     def click_customer_login_button(self):
-        """Нажатие кнопки: customer_login"""
+        """Кликнули кнопку: customer_login"""
         self.get_customer_login().click()
-        print("Нажали кнопку 'customer login'")
+        print("Кликнули кнопку 'customer login'")
 
     # Methods
     def login_page_actions(self):

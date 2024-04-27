@@ -1,6 +1,6 @@
 import allure
-from selenium.webdriver import Keys
 from selenium.webdriver.common.by import By
+from selenium.webdriver.support.select import Select
 from selenium.webdriver.support.wait import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
 from base.base_class import Base
@@ -40,13 +40,15 @@ class CustomerPage(Base):
     # Actions
 
     def click_drop_down_your_name(self):
-        """Нажатие drop_down your_name"""
+        """Кликнули drop_down your_name"""
         self.get_drop_down_your_name().click()
 
     def select_harry_potter(self):
-        """Выбираем пользователя: Harry Potter"""
-        self.get_drop_down_your_name().send_keys(Keys.DOWN * 2)
-        self.get_drop_down_your_name().send_keys(Keys.ENTER)
+        """Выбирали пользователя: Harry Potter"""
+        # self.get_drop_down_your_name().send_keys(Keys.DOWN * 2)
+        # self.get_drop_down_your_name().send_keys(Keys.ENTER)
+        drop_down_list = Select(self.get_drop_down_your_name())
+        drop_down_list.select_by_value("2")
 
     def click_login_button(self):
         """Нажатие кнопки Login"""
