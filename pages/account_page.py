@@ -6,7 +6,7 @@ from selenium.webdriver.support.wait import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
 from base.base_class import Base
 from utilities.logger import Logger
-from time import sleep
+
 
 class AccountPage(Base):
 
@@ -163,7 +163,7 @@ class AccountPage(Base):
         """Нажатие кнопки transaction_button"""
         with allure.step("End transaction"):
             # Logger.add_start_step(method="transaction_button            
-            sleep(1)
+
             self.get_check_text_to_be_present_in_element(self.text_to_be_present_in_element_tran)
             self.click_transaction_button()
             self.check_text(self.get_check_amount(), 'Amount')
