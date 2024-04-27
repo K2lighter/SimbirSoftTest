@@ -163,8 +163,9 @@ class AccountPage(Base):
         """Нажатие кнопки transaction_button"""
         with allure.step("End transaction"):
             # Logger.add_start_step(method="transaction_button            
-            sleep(1)
+            
             self.get_check_text_to_be_present_in_element(self.text_to_be_present_in_element_tran)
+            sleep(1)
             self.click_transaction_button()
             self.check_text(self.get_check_amount(), 'Amount')
             # Logger.add_end_step(url=self.driver.current_url, method="transaction_button")
