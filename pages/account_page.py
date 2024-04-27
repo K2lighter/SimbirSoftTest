@@ -7,7 +7,7 @@ from selenium.webdriver.support import expected_conditions as EC
 from base.base_class import Base
 from utilities.logger import Logger
 
-"
+
 class AccountPage(Base):
 
     def __init__(self, driver):
