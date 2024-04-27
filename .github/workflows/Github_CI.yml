@@ -10,7 +10,7 @@ on:
         type: choice
         options:
           - first_test
-          - second_test
+  
 
 permissions:
   contents: read
