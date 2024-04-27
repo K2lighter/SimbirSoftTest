@@ -111,6 +111,7 @@ class AccountPage(Base):
         """Нажатие кнопки withdrawal_button"""
         self.get_withdrawal_button().click()
         print("Кликнули кнопку 'withdrawal'")
+        
     def input_fibo_withdrawal(self, fibo):
         """Вносим в поле amount_withdrawal вычисленное значение fibonacci"""
         self.get_amount_withdrawal().send_keys(fibo)
@@ -156,20 +157,15 @@ class AccountPage(Base):
             self.check_text(self.get_check_text(), 'Transaction successful')
             self.check_text(self.get_balance(), str(int(my_fibo) - int(my_fibo)))
             # Logger.add_end_step(url=self.driver.current_url, method="input_withdrawal_value")
+
+    
     def transaction_button(self):
         """Нажатие кнопки transaction_button"""
         with allure.step("End transaction"):
-<<<<<<< HEAD
-            # Logger.add_start_step(method="transaction_button")
-=======
-            Logger.add_start_step(method="transaction_button")
->>>>>>> refs/remotes/origin/main
+            # Logger.add_start_step(method="transaction_button            
             sleep(1)
             self.get_check_text_to_be_present_in_element(self.text_to_be_present_in_element_tran)
             self.click_transaction_button()
             self.check_text(self.get_check_amount(), 'Amount')
-<<<<<<< HEAD
             # Logger.add_end_step(url=self.driver.current_url, method="transaction_button")
-=======
-            Logger.add_end_step(url=self.driver.current_url, method="transaction_button")
->>>>>>> refs/remotes/origin/main
+
