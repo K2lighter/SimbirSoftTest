@@ -8,6 +8,7 @@ from base.base_class import Base
 from utilities.logger import Logger
 from time import sleep
 
+
 class AccountPage(Base):
 
     def __init__(self, driver):
@@ -50,11 +51,13 @@ class AccountPage(Base):
         return WebDriverWait(self.driver, 30).until(
             EC.element_to_be_clickable((By.XPATH, self.deposit_submit_locator)))
 
+    @property
     def get_check_text(self):
         """Проверочный текст"""
         return WebDriverWait(self.driver, 30).until(
             EC.element_to_be_clickable((By.XPATH, self.check_text_locator)))
 
+    @property
     def get_balance(self):
         """Баланс"""
         return WebDriverWait(self.driver, 30).until(
@@ -80,6 +83,7 @@ class AccountPage(Base):
         return WebDriverWait(self.driver, 30).until(
             EC.element_to_be_clickable((By.XPATH, self.transaction_locator)))
 
+    @property
     def get_check_amount(self):
         """Текст успешной операции"""
         return WebDriverWait(self.driver, 30).until(
@@ -111,7 +115,7 @@ class AccountPage(Base):
         """Нажатие кнопки withdrawal_button"""
         self.get_withdrawal_button().click()
         print("Кликнули кнопку 'withdrawal'")
-        
+
     def input_fibo_withdrawal(self, fibo):
         """Вносим в поле amount_withdrawal вычисленное значение fibonacci"""
         self.get_amount_withdrawal().send_keys(fibo)
@@ -140,8 +144,8 @@ class AccountPage(Base):
             self.get_check_text_to_be_present_in_element(self.text_to_be_present_in_element_d)
             self.input_fibo_deposit(my_fibo)
             self.click_deposit_submit()
-            self.check_text(self.get_check_text(), 'Deposit Successful')
-            self.check_text(self.get_balance(), str(my_fibo))
+            self.check_text(self.get_check_text, 'Deposit Successful')
+            self.check_text(self.get_balance, str(my_fibo))
             Logger.add_end_step(url=self.driver.current_url, method="input_deposit_value")
 
     def input_withdrawal_value(self):
@@ -154,11 +158,10 @@ class AccountPage(Base):
             self.get_check_text_to_be_present_in_element(self.text_to_be_present_in_element_w)
             self.input_fibo_withdrawal(my_fibo)
             self.click_withdrawal_submit()
-            self.check_text(self.get_check_text(), 'Transaction successful')
-            self.check_text(self.get_balance(), str(int(my_fibo) - int(my_fibo)))
+            self.check_text(self.get_check_text, 'Transaction successful')
+            self.check_text(self.get_balance, str(int(my_fibo) - int(my_fibo)))
             Logger.add_end_step(url=self.driver.current_url, method="input_withdrawal_value")
 
-    
     def transaction_button(self):
         """Нажатие кнопки transaction_button"""
         with allure.step("End transaction"):
@@ -166,6 +169,5 @@ class AccountPage(Base):
             self.get_check_text_to_be_present_in_element(self.text_to_be_present_in_element_tran)
             sleep(1)
             self.click_transaction_button()
-            self.check_text(self.get_check_amount(), 'Amount')
+            self.check_text(self.get_check_amount, 'Amount')
             Logger.add_end_step(url=self.driver.current_url, method="transaction_button")
-

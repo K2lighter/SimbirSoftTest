@@ -32,6 +32,7 @@ class CustomerPage(Base):
         return WebDriverWait(self.driver, 30).until(
             EC.element_to_be_clickable((By.XPATH, self.login_button_locator)))
 
+    @property
     def get_check_text(self):
         """Проверочный текст"""
         return WebDriverWait(self.driver, 30).until(
@@ -64,5 +65,5 @@ class CustomerPage(Base):
             self.click_drop_down_your_name()
             self.select_harry_potter()
             self.click_login_button()
-            self.check_text(self.get_check_text(), "Harry Potter")
+            self.check_text(self.get_check_text, "Harry Potter")
             Logger.add_end_step(url=self.driver.current_url, method="select_user")

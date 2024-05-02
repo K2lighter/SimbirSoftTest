@@ -18,44 +18,39 @@ class TransactionsPage(Base):
 
     # Locators
 
-    transaction_balance_credit_locator = '//tr[@id="anchor0"]/child::td[2]'
-    transaction_type_credit_locator = '//tr[@id="anchor0"]/child::td[3]'
-    transaction_date_credit_locator = '//tr[@id="anchor0"]/child::td[1]'
+    transaction_balance_credit_locator = (By.XPATH, '//tr[@id="anchor0"]/child::td[2]')
+    transaction_type_credit_locator = (By.XPATH, '//tr[@id="anchor0"]/child::td[3]')
+    transaction_date_credit_locator = (By.XPATH, '//tr[@id="anchor0"]/child::td[1]')
 
-    transaction_balance_debit_locator = '//tr[@id="anchor1"]/child::td[2]'
-    transaction_date_debit_locator = '//tr[@id="anchor1"]/child::td[1]'
-    transaction_type_debit_locator = '//tr[@id="anchor1"]/child::td[3]'
+    transaction_balance_debit_locator = (By.XPATH, '//tr[@id="anchor1"]/child::td[2]')
+    transaction_date_debit_locator = (By.XPATH, '//tr[@id="anchor1"]/child::td[1]')
+    transaction_type_debit_locator = (By.XPATH, '//tr[@id="anchor1"]/child::td[3]')
 
     # Getters
+
     def get_transaction_type_credit(self):
         """Получить тип transaction_credit"""
-        return WebDriverWait(self.driver, 30).until(
-            EC.element_to_be_clickable((By.XPATH, self.transaction_type_credit_locator)))
+        return self.find(self.transaction_type_credit_locator)
 
     def get_transaction_credit_balance(self):
         """Получить баланс transaction_credit"""
-        return WebDriverWait(self.driver, 30).until(
-            EC.element_to_be_clickable((By.XPATH, self.transaction_balance_credit_locator)))
+        return self.find(self.transaction_balance_credit_locator)
 
     def get_transaction_credit_date(self):
         """Получить дату transaction_credit"""
-        return WebDriverWait(self.driver, 30).until(
-            EC.element_to_be_clickable((By.XPATH, self.transaction_date_credit_locator)))
+        return self.find(self.transaction_date_credit_locator)
 
     def get_transaction_debit_balance(self):
         """Получить баланс transaction_debit"""
-        return WebDriverWait(self.driver, 30).until(
-            EC.element_to_be_clickable((By.XPATH, self.transaction_balance_debit_locator)))
+        return self.find(self.transaction_balance_debit_locator)
 
     def get_transaction_debit_date(self):
         """Получить дату transaction_debit"""
-        return WebDriverWait(self.driver, 30).until(
-            EC.element_to_be_clickable((By.XPATH, self.transaction_date_debit_locator)))
+        return self.find(self.transaction_date_debit_locator)
 
     def get_transaction_type_debit(self):
         """Получить тип transaction_debit"""
-        return WebDriverWait(self.driver, 30).until(
-            EC.element_to_be_clickable((By.XPATH, self.transaction_type_debit_locator)))
+        return self.find(self.transaction_type_debit_locator)
 
     # Actions
     def finish_check(self):

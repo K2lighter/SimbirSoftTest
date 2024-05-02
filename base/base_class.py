@@ -6,8 +6,13 @@ class Base:
         self.driver = driver
 
     def open(self, url):
+        """Открыть url"""
         self.driver.get(url)
         print(f"текущая url - {url}")
+
+    def find(self, args: tuple):
+        """Найти элемент"""
+        return self.driver.find_element(*args)
 
     def get_current_url(self):
         """current url method"""
