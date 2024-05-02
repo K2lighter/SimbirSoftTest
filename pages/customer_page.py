@@ -59,10 +59,10 @@ class CustomerPage(Base):
     def select_user(self):
         """Выбираем пользователя"""
         with allure.step("select_user"):
-            # Logger.add_start_step(method="select_user")
+            Logger.add_start_step(method="select_user")
             self.get_current_url()
             self.click_drop_down_your_name()
             self.select_harry_potter()
             self.click_login_button()
             self.check_text(self.get_check_text(), "Harry Potter")
-            # Logger.add_end_step(url=self.driver.current_url, method="select_user")
+            Logger.add_end_step(url=self.driver.current_url, method="select_user")

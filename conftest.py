@@ -1,6 +1,6 @@
 from selenium import webdriver
 from selenium.webdriver.chrome.options import Options
-from selenium.webdriver.common.desired_capabilities import DesiredCapabilities
+
 import pytest
 
 
@@ -12,8 +12,8 @@ def browser():
     driver = webdriver.Remote(
         command_executor='http://localhost:4444',
         options=options)
+
     driver.maximize_window()
     driver.implicitly_wait(10)
     yield driver
     driver.close()
-

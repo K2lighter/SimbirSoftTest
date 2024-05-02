@@ -5,6 +5,14 @@ from pages.transactions_page import TransactionsPage
 import allure
 
 
+"""
+1.чтобы запустить сервер
+скачать и запустить
+java -jar selenium-server-4.20.0.jar standalone
+2. для запуска теста pytest -s -v 
+"""
+
+
 @allure.description("test_smoke_v1")
 def test_smoke_v1(browser):
     """
