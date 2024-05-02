@@ -44,7 +44,7 @@ class LoginPage(Base):
     def login_page_actions(self):
         with allure.step("login_page_actions"):
             Logger.add_start_step(method="login_page_actions")
-            self.driver.get(self.url)
+            self.open(self.url)
             self.get_current_url()
             self.click_customer_login_button()
             self.check_text(self.get_check_text(), 'Your Name :')

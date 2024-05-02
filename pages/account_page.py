@@ -134,7 +134,7 @@ class AccountPage(Base):
         Пополнение счета (Deposit) на сумму равную вычисленному в п.4 числу
         """
         with allure.step("input_deposit_value"):
-            # Logger.add_start_step(method="input_deposit_value")
+            Logger.add_start_step(method="input_deposit_value")
             self.get_current_url()
             self.click_deposit_button()
             self.get_check_text_to_be_present_in_element(self.text_to_be_present_in_element_d)
@@ -142,21 +142,21 @@ class AccountPage(Base):
             self.click_deposit_submit()
             self.check_text(self.get_check_text(), 'Deposit Successful')
             self.check_text(self.get_balance(), str(my_fibo))
-            # Logger.add_end_step(url=self.driver.current_url, method="input_deposit_value")
+            Logger.add_end_step(url=self.driver.current_url, method="input_deposit_value")
 
     def input_withdrawal_value(self):
         """
         Списание со счета (Withdrawal) на сумму равную вычисленному в п.4 числу;
         """
         with allure.step("Input_withdrawal_value"):
-            # Logger.add_start_step(method="input_withdrawal_value")
+            Logger.add_start_step(method="input_withdrawal_value")
             self.click_withdrawal_button()
             self.get_check_text_to_be_present_in_element(self.text_to_be_present_in_element_w)
             self.input_fibo_withdrawal(my_fibo)
             self.click_withdrawal_submit()
             self.check_text(self.get_check_text(), 'Transaction successful')
             self.check_text(self.get_balance(), str(int(my_fibo) - int(my_fibo)))
-            # Logger.add_end_step(url=self.driver.current_url, method="input_withdrawal_value")
+            Logger.add_end_step(url=self.driver.current_url, method="input_withdrawal_value")
 
     
     def transaction_button(self):

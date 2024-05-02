@@ -10,8 +10,12 @@ import allure
 скачать и запустить
 java -jar selenium-server-4.20.0.jar standalone
 2. для запуска теста pytest -s -v 
-"""
 
+3. для получения allure отчета:
+pytest -s -v --alluredir allure-results
+allure serve allure-results
+
+"""
 
 @allure.description("test_smoke_v1")
 def test_smoke_v1(browser):
@@ -32,4 +36,4 @@ def test_smoke_v1(browser):
     tran = TransactionsPage(browser)
     tran.finish_check()
 
-# allure serve test_results/tests/test_smoke.py
+# allure serve allure-results
