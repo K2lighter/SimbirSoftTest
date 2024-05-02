@@ -55,7 +55,7 @@ class LoginPage(Base):
             Logger.add_start_step(method="login_page_actions")
             self.open(self.url)
             self.get_current_url()
-            self.button_is_displayed()
+            self.button_customer_is_displayed()
             self.click_customer_login_button()
             self.check_text(self.get_check_text(), 'Your Name :')
             Logger.add_end_step(url=self.driver.current_url, method="login_page_actions")
