@@ -6,7 +6,8 @@ class Base:
         self.driver = driver
 
     def open(self, url):
-        return self.driver.get(url)
+        self.driver.get(url)
+        print(f"текущая url - {url}")
 
     def get_current_url(self):
         """current url method"""

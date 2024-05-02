@@ -1,9 +1,10 @@
+import pytest
+
 from pages.login_page import LoginPage
 from pages.customer_page import CustomerPage
 from pages.account_page import AccountPage
 from pages.transactions_page import TransactionsPage
 import allure
-
 
 """
 1.чтобы запустить сервер
@@ -17,7 +18,9 @@ allure serve allure-results
 
 """
 
+
 @allure.description("test_smoke_v1")
+@pytest.mark.smoke
 def test_smoke_v1(browser):
     """
     Дымовое тестирование
