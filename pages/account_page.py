@@ -1,12 +1,12 @@
 import allure
-
+from selenium.webdriver import Keys
 from utilities.fibonacci import my_fibo
 from selenium.webdriver.common.by import By
 from selenium.webdriver.support.wait import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
 from base.base_class import Base
 from utilities.logger import Logger
-from time import sleep
+# from time import sleep
 
 
 class AccountPage(Base):
@@ -20,15 +20,15 @@ class AccountPage(Base):
     deposit_button_locator = '//button[@ng-click="deposit()"]'
     amount_placeholder_locator = '//input[@placeholder="amount"]'
     deposit_submit_locator = '//button[@type="submit"]'
-    check_text_locator = '//span[@class="error ng-binding"]'
-    check_balance_locator = '//strong[@class="ng-binding"][2]'
+    check_text_locator = (By.XPATH, '//span[@class="error ng-binding"]')
+    check_balance_locator = (By.XPATH, '//strong[@class="ng-binding"][2]')
 
     withdrawal_button_locator = '//button[@ng-click="withdrawl()"]'
     amount_withdrawal_locator = '//input[@placeholder="amount"]'
     withdrawal_submit_locator = '//button[text()="Withdraw"]'
 
     transaction_locator = '//button[@ng-class="btnClass1"]'
-    check_amount_locator = '//*[text()="Amount"]'
+    check_amount_locator = (By.XPATH, '//*[text()="Amount"]')
 
     text_to_be_present_in_element_d = "Amount to be Deposited :"
     text_to_be_present_in_element_w = "Amount to be Withdrawn :"
@@ -54,14 +54,12 @@ class AccountPage(Base):
     @property
     def get_check_text(self):
         """Проверочный текст"""
-        return WebDriverWait(self.driver, 30).until(
-            EC.element_to_be_clickable((By.XPATH, self.check_text_locator)))
+        return self.find(self.check_text_locator)
 
     @property
     def get_balance(self):
         """Баланс"""
-        return WebDriverWait(self.driver, 30).until(
-            EC.element_to_be_clickable((By.XPATH, self.check_balance_locator)))
+        return self.find(self.check_balance_locator)
 
     def get_withdrawal_button(self):
         """Кнопка withdrawl_button"""
@@ -86,8 +84,7 @@ class AccountPage(Base):
     @property
     def get_check_amount(self):
         """Текст успешной операции"""
-        return WebDriverWait(self.driver, 30).until(
-            EC.element_to_be_clickable((By.XPATH, self.check_amount_locator)))
+        return self.find(self.check_amount_locator)
 
     def get_check_text_to_be_present_in_element(self, text):
         """Ожидание, пока не появится поверочный текст на странице"""
@@ -157,6 +154,7 @@ class AccountPage(Base):
             self.click_withdrawal_button()
             self.get_check_text_to_be_present_in_element(self.text_to_be_present_in_element_w)
             self.input_fibo_withdrawal(my_fibo)
+            # self.get_amount_withdrawal().send_keys(Keys.ENTER)
             self.click_withdrawal_submit()
             self.check_text(self.get_check_text, 'Transaction successful')
             self.check_text(self.get_balance, str(int(my_fibo) - int(my_fibo)))
@@ -167,7 +165,7 @@ class AccountPage(Base):
         with allure.step("End transaction"):
             Logger.add_start_step(method="transaction_button")
             self.get_check_text_to_be_present_in_element(self.text_to_be_present_in_element_tran)
-            sleep(1)
+            # sleep(1)
             self.click_transaction_button()
             self.check_text(self.get_check_amount, 'Amount')
             Logger.add_end_step(url=self.driver.current_url, method="transaction_button")

@@ -7,8 +7,9 @@ import pytest
 @pytest.fixture()
 def browser():
     options = webdriver.ChromeOptions()
-    options.add_argument("--no-sandbox")
-    options.add_argument("--headless")
+    # options = webdriver.FirefoxOptions()
+    # options.add_argument("--no-sandbox")
+    # options.add_argument("--headless")
     driver = webdriver.Remote(
         command_executor='http://localhost:4444',
         options=options)
